@@ -22,7 +22,8 @@ export class AppComponent {
   // any[] significa que a variável será um array/lista de qualquer coisa.
   // = [] inicializa a nossa variável como um array vazio.
   public title: String = 'Minhas Trefas';
-  public form!: FormGroup; 
+  public form!: FormGroup;
+  public mode: string = 'list';
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -33,7 +34,7 @@ export class AppComponent {
       ])]
     });
 
-    this.load()
+    this.load();
   }
   // Método que é chamado toda vez que o componente inicia.
 
@@ -72,6 +73,7 @@ export class AppComponent {
   save() {
     const data = JSON.stringify(this.todos);
     localStorage.setItem('todos', data);
+    this.mode = 'list';
   }
 
   load() {
@@ -81,5 +83,9 @@ export class AppComponent {
     } else {
       this.todos = [];
     }
+  }
+
+  changeMode(mode: string){
+    this.mode = mode;
   }
 }
